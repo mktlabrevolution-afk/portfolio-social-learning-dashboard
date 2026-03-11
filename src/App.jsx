@@ -39,8 +39,10 @@ function App() {
         </section>
       </main>
       
-      {/* AI Assistant Chat */}
-      <ChatWidget />
+      {/* AI Assistant Chat Section */}
+      <section className="animate-fade-in delay-300">
+        <ChatWidget />
+      </section>
     </div>
   )
 }

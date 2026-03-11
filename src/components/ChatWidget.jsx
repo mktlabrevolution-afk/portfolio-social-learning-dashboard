@@ -1,14 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageSquareText, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'model', content: 'Hola. Soy el asistente estratégico del Dashboard de Competitividad. Puedo responder tus dudas sobre el análisis de Teclab, IPP y Onmex. ¿En qué te puedo ayudar?' }
+    { 
+      role: 'model', 
+      content: '¡Hola! Soy el asistente estratégico entrenado con tus documentos de NotebookLM. Conozco a fondo el portafolio de Teclab, IPP y Onmex, las áreas de sobrepoblación del mercado, nuestros puntos ciegos y las tendencias clave para 2026.\n\n¿Quieres saber en qué áreas nos solapamos con la competencia o cuál debería ser nuestra próxima jugada estratégica?' 
+    }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const predefinedQuestions = [
+    "¿Cuáles son las mayores amenazas (puntos ciegos) para nuestras marcas?",
+    "¿En qué áreas educativas nos solapamos más con la competencia?",
+    "¿Qué roles de Inteligencia Artificial deberíamos empezar a enseñar?"
+  ];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -16,13 +24,12 @@ export default function ChatWidget() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isOpen]);
+  }, [messages]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const sendPrompt = async (text) => {
+    if (!text.trim() || isLoading) return;
 
-    const userMessage = { role: 'user', content: input.trim() };
+    const userMessage = { role: 'user', content: text.trim() };
     const history = [...messages];
     
     setMessages([...history, userMessage]);
@@ -51,72 +58,79 @@ export default function ChatWidget() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendPrompt(input);
+  };
+
   return (
-    <>
-      {/* Floating Button */}
-      <button 
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 p-4 rounded-full shadow-lg transition-transform hover:scale-110 z-50 bg-gradient-to-r"
-        style={{ 
-          background: 'linear-gradient(135deg, var(--accent-teclab) 0%, var(--accent-onmex) 100%)',
-          display: isOpen ? 'none' : 'flex',
-          border: 'none',
-          cursor: 'pointer',
-          color: '#000'
-        }}
-      >
-        <MessageSquareText size={28} />
-      </button>
+    <div className="glass-panel w-full" style={{ marginTop: 'var(--space-xl)', background: 'linear-gradient(180deg, rgba(10,10,15,0.6) 0%, rgba(19,20,31,0.9) 100%)', borderColor: 'var(--accent-glow)' }}>
+      {/* Chat Header */}
+      <div className="flex items-center gap-md mb-6 pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+        <div className="p-3 rounded-xl bg-black bg-opacity-30 border" style={{ borderColor: 'var(--accent-glow)' }}>
+          <Sparkles className="teclab-text" size={28} color="var(--accent-teclab)" />
+        </div>
+        <div>
+          <h2 className="text-3xl font-heading font-semibold text-gradient">AI NotebookLM Chat</h2>
+          <p className="text-secondary text-sm mt-1">Chatea directamente con la inteligencia extraída del cuaderno: Portfolio Social Learning.</p>
+        </div>
+      </div>
 
-      {/* Chat Window */}
-      {isOpen && (
-        <div 
-          className="fixed bottom-6 right-6 z-50 flex flex-col glass-panel"
-          style={{ 
-            width: '380px', 
-            height: '600px', 
-            maxHeight: '90vh',
-            maxWidth: '90vw',
-            padding: 0,
-            background: 'var(--bg-secondary)',
-            borderColor: 'var(--accent-teclab)',
-            boxShadow: '0 20px 40px rgba(0,229,255,0.1)'
-          }}
-        >
-          {/* Header */}
-          <div className="flex justify-between items-center p-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-            <div className="flex items-center gap-sm">
-              <Bot className="teclab-text" size={24} color="var(--accent-teclab)" />
-              <h3 className="font-semibold text-lg">Asistente Estratégico</h3>
-            </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="text-secondary hover:text-primary bg-transparent border-none cursor-pointer"
+      <div className="flex flex-col md:flex-row gap-lg">
+        {/* Sidebar / Quick Actions */}
+        <div className="flex flex-col gap-sm w-full md:w-1/3">
+          <h3 className="text-sm text-muted uppercase tracking-widest font-semibold mb-2">Sugerencias Rápidas</h3>
+          {predefinedQuestions.map((q, idx) => (
+            <button
+              key={idx}
+              onClick={() => sendPrompt(q)}
+              disabled={isLoading}
+              className="p-4 rounded-lg flex items-start text-left gap-sm transition-all hover:translate-x-1"
+              style={{ 
+                background: 'rgba(255,255,255,0.03)', 
+                border: '1px solid rgba(255,255,255,0.05)',
+                cursor: isLoading ? 'not-allowed' : 'pointer',
+                color: 'var(--text-primary)'
+              }}
             >
-              <X size={20} />
+              <ArrowRight size={18} className="text-secondary mt-1 min-w-[18px]" />
+              <span className="text-sm leading-snug">{q}</span>
             </button>
+          ))}
+          
+          <div className="mt-auto pt-6 px-4 pb-4 rounded-lg" style={{ background: 'rgba(0, 229, 255, 0.05)', borderLeft: '2px solid var(--accent-teclab)' }}>
+            <p className="text-xs text-secondary italic">
+              Este asistente está programado con el System Prompt estratégico directo de NotebookLM y utiliza la API de Gemini Pro 2.5.
+            </p>
           </div>
+        </div>
 
+        {/* Chat Interface Area */}
+        <div className="flex flex-col w-full md:w-2/3 h-[500px] border rounded-xl overflow-hidden" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)' }}>
+          
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-sm">
+          <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-md">
             {messages.map((msg, idx) => (
               <div 
                 key={idx} 
                 className={`flex gap-sm ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                <div className={`p-2 rounded-full h-8 w-8 flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-primary text-black' : 'bg-secondary text-primary'}`}
-                     style={{ background: msg.role === 'user' ? 'var(--text-primary)' : 'var(--bg-tertiary)' }}>
-                  {msg.role === 'user' ? <User size={16} /> : <Bot size={16} color="var(--accent-teclab)" />}
+                <div className={`p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-primary text-black' : 'bg-secondary text-primary'}`}
+                     style={{ 
+                       background: msg.role === 'user' ? 'var(--text-primary)' : 'rgba(19,20,31,1)',
+                       border: msg.role === 'user' ? 'none' : '1px solid var(--accent-glow)'
+                     }}>
+                  {msg.role === 'user' ? <User size={20} /> : <Bot size={20} color="var(--accent-teclab)" />}
                 </div>
                 
                 <div 
-                  className={`p-3 rounded-lg text-sm max-w-[80%] whitespace-pre-wrap ${
+                  className={`p-4 rounded-xl text-sm leading-relaxed max-w-[85%] whitespace-pre-wrap ${
                     msg.role === 'user' 
-                      ? 'bg-opacity-20' 
-                      : 'border'
+                      ? 'bg-opacity-20 rounded-tr-none' 
+                      : 'border rounded-tl-none'
                   }`}
                   style={{ 
-                    background: msg.role === 'user' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.3)',
+                    background: msg.role === 'user' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.4)',
                     borderColor: msg.role === 'user' ? 'transparent' : 'rgba(255,255,255,0.05)',
                   }}
                 >
@@ -126,44 +140,51 @@ export default function ChatWidget() {
             ))}
             
             {isLoading && (
-              <div className="flex gap-sm flex-row">
-                 <div className="p-2 rounded-full h-8 w-8 flex items-center justify-center flex-shrink-0" style={{ background: 'var(--bg-tertiary)' }}>
-                  <Bot size={16} color="var(--accent-teclab)" />
+              <div className="flex gap-sm flex-row animate-fade-in">
+                 <div className="p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(19,20,31,1)', border: '1px solid var(--accent-glow)' }}>
+                  <Bot size={20} color="var(--accent-teclab)" />
                 </div>
-                <div className="p-3 rounded-lg border text-secondary flex items-center" style={{ background: 'rgba(0,0,0,0.3)', borderColor: 'rgba(255,255,255,0.05)' }}>
-                  <Loader2 size={16} className="animate-spin" />
-                  <span className="ml-2 text-sm italic">Analizando...</span>
+                <div className="p-4 rounded-xl rounded-tl-none border text-secondary flex items-center gap-sm" style={{ background: 'rgba(0,0,0,0.4)', borderColor: 'rgba(255,255,255,0.05)' }}>
+                  <Loader2 size={18} className="animate-spin text-teclab" color="var(--accent-teclab)" />
+                  <span className="italic">Procesando respuesta estratégica...</span>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
-          <form onSubmit={handleSubmit} className="p-4 border-t flex gap-sm" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+          {/* Input Form */}
+          <form onSubmit={handleSubmit} className="p-4 border-t flex gap-md bg-opacity-50" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.3)' }}>
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Pregunta sobre la competencia..."
+              placeholder="Haz una pregunta específica sobre el análisis del portafolio..."
               disabled={isLoading}
-              className="flex-1 p-2 rounded bg-black bg-opacity-40 border text-primary"
-              style={{ borderColor: 'rgba(255,255,255,0.1)', outline: 'none' }}
+              className="flex-1 px-4 py-3 rounded-lg border text-primary w-full"
+              style={{ 
+                background: 'rgba(255,255,255,0.03)',
+                borderColor: 'rgba(255,255,255,0.1)', 
+                outline: 'none',
+                fontFamily: 'inherit'
+              }}
             />
             <button 
               type="submit" 
               disabled={isLoading || !input.trim()}
-              className="p-2 rounded flex items-center justify-center border-none cursor-pointer transition-colors"
+              className="px-6 py-3 rounded-lg flex items-center justify-center border-none cursor-pointer transition-colors font-semibold gap-2"
               style={{ 
                 background: input.trim() ? 'var(--accent-teclab)' : 'var(--bg-tertiary)',
                 color: input.trim() ? '#000' : 'var(--text-secondary)'
               }}
             >
+              <span>Enviar</span>
               <Send size={18} />
             </button>
           </form>
+          
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
