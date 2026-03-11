@@ -1,4 +1,5 @@
-import { Search, HeartPulse, Cpu, Leaf, Wrench, BrainCircuit, Target } from 'lucide-react';
+import { Target, Zap, TrendingUp, HelpCircle } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 export default function GapAnalysis() {
   const gaps = [
