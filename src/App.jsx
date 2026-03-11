@@ -5,6 +5,7 @@ import MarketOverlap from './components/MarketOverlap'
 import GapAnalysis from './components/GapAnalysis'
 import StrategicInfographic from './components/StrategicInfographic'
 import BlindSpots from './components/BlindSpots'
+import ChatWidget from './components/ChatWidget'
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
           <BlindSpots />
         </section>
       </main>
+      
+      {/* AI Assistant Chat */}
+      <ChatWidget />
     </div>
   )
 }
