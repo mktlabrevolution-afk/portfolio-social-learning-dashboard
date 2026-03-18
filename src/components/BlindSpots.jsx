@@ -30,7 +30,7 @@ export default function BlindSpots() {
 
   return (
     <div className="glass-panel" style={{ marginTop: 'var(--space-xl)' }}>
-      <div className="flex flex-col items-center justify-center text-center p-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+      <div className="flex flex-col items-center justify-center text-center p-6 border-b" style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
         <EyeOff size={48} className="text-muted mb-4" />
         <h2 className="text-4xl text-gradient mb-2">Puntos Ciegos y Recomendaciones IA</h2>
         <p className="text-lg text-secondary max-w-2xl">
@@ -56,7 +56,7 @@ export default function BlindSpots() {
       </div>
       
       {/* High value overall insight */}
-       <div className="m-6 p-6 rounded-lg text-center" style={{ background: 'rgba(255,255,255,0.02)' }}>
+       <div className="m-6 p-6 rounded-lg text-center" style={{ background: 'rgba(0,0,0,0.02)' }}>
           <h4 className="text-sm text-muted uppercase tracking-widest font-bold mb-4">Veredicto Estratégico Global 2026</h4>
           <p className="text-2xl font-heading font-light leading-snug">
             <span className="text-primary italic">"El conocimiento se comoditizó, la información es libre.</span> El 'Moat' defensivo de Teclab, IPP y Onmex deber ser convertirse en <strong>validadores y ecosistemas de práctica guiada por IA, no solo bibliotecas de contenido</strong>."

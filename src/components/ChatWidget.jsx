@@ -64,10 +64,10 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="glass-panel w-full" style={{ marginTop: 'var(--space-xl)', background: 'linear-gradient(180deg, rgba(10,10,15,0.6) 0%, rgba(19,20,31,0.9) 100%)', borderColor: 'var(--accent-glow)' }}>
+    <div className="glass-panel w-full" style={{ marginTop: 'var(--space-xl)', background: 'linear-gradient(180deg, rgba(248,250,252,0.6) 0%, rgba(241,245,249,0.9) 100%)', borderColor: 'var(--accent-glow)' }}>
       {/* Chat Header */}
-      <div className="flex items-center gap-md mb-6 pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="p-3 rounded-xl bg-black bg-opacity-30 border" style={{ borderColor: 'var(--accent-glow)' }}>
+      <div className="flex items-center gap-md mb-6 pb-4 border-b" style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
+        <div className="p-3 rounded-xl bg-black bg-opacity-5 border" style={{ borderColor: 'var(--accent-glow)' }}>
           <Sparkles className="teclab-text" size={28} color="var(--accent-teclab)" />
         </div>
         <div>
@@ -87,8 +87,8 @@ export default function ChatWidget() {
               disabled={isLoading}
               className="p-4 rounded-lg flex items-start text-left gap-sm transition-all hover:translate-x-1"
               style={{ 
-                background: 'rgba(255,255,255,0.03)', 
-                border: '1px solid rgba(255,255,255,0.05)',
+                background: 'rgba(0,0,0,0.03)', 
+                border: '1px solid rgba(0,0,0,0.05)',
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 color: 'var(--text-primary)'
               }}
@@ -98,7 +98,7 @@ export default function ChatWidget() {
             </button>
           ))}
           
-          <div className="mt-auto pt-6 px-4 pb-4 rounded-lg" style={{ background: 'rgba(0, 229, 255, 0.05)', borderLeft: '2px solid var(--accent-teclab)' }}>
+          <div className="mt-auto pt-6 px-4 pb-4 rounded-lg" style={{ background: 'rgba(2, 132, 199, 0.05)', borderLeft: '2px solid var(--accent-teclab)' }}>
             <p className="text-xs text-secondary italic">
               Este asistente está programado con el System Prompt estratégico directo de NotebookLM y utiliza la API de Gemini Pro 2.5.
             </p>
@@ -106,7 +106,7 @@ export default function ChatWidget() {
         </div>
 
         {/* Chat Interface Area */}
-        <div className="flex flex-col w-full md:w-2/3 h-[500px] border rounded-xl overflow-hidden" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)' }}>
+        <div className="flex flex-col w-full md:w-2/3 h-[500px] border rounded-xl overflow-hidden" style={{ borderColor: 'rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.4)' }}>
           
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-md">
@@ -115,10 +115,11 @@ export default function ChatWidget() {
                 key={idx} 
                 className={`flex gap-sm ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                <div className={`p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-primary text-black' : 'bg-secondary text-primary'}`}
+                <div className={`p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-primary text-white' : 'bg-secondary text-primary'}`}
                      style={{ 
-                       background: msg.role === 'user' ? 'var(--text-primary)' : 'rgba(19,20,31,1)',
-                       border: msg.role === 'user' ? 'none' : '1px solid var(--accent-glow)'
+                       background: msg.role === 'user' ? 'var(--text-primary)' : 'rgba(241,245,249,1)',
+                       border: msg.role === 'user' ? 'none' : '1px solid var(--accent-glow)',
+                       color: msg.role === 'user' ? '#fff' : 'var(--text-primary)'
                      }}>
                   {msg.role === 'user' ? <User size={20} /> : <Bot size={20} color="var(--accent-teclab)" />}
                 </div>
@@ -130,8 +131,8 @@ export default function ChatWidget() {
                       : 'border rounded-tl-none'
                   }`}
                   style={{ 
-                    background: msg.role === 'user' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.4)',
-                    borderColor: msg.role === 'user' ? 'transparent' : 'rgba(255,255,255,0.05)',
+                    background: msg.role === 'user' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.7)',
+                    borderColor: msg.role === 'user' ? 'transparent' : 'rgba(0,0,0,0.05)',
                   }}
                 >
                   {msg.content}
@@ -141,10 +142,10 @@ export default function ChatWidget() {
             
             {isLoading && (
               <div className="flex gap-sm flex-row animate-fade-in">
-                 <div className="p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(19,20,31,1)', border: '1px solid var(--accent-glow)' }}>
+                 <div className="p-2 rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(241,245,249,1)', border: '1px solid var(--accent-glow)' }}>
                   <Bot size={20} color="var(--accent-teclab)" />
                 </div>
-                <div className="p-4 rounded-xl rounded-tl-none border text-secondary flex items-center gap-sm" style={{ background: 'rgba(0,0,0,0.4)', borderColor: 'rgba(255,255,255,0.05)' }}>
+                <div className="p-4 rounded-xl rounded-tl-none border text-secondary flex items-center gap-sm" style={{ background: 'rgba(255,255,255,0.6)', borderColor: 'rgba(0,0,0,0.05)' }}>
                   <Loader2 size={18} className="animate-spin text-teclab" color="var(--accent-teclab)" />
                   <span className="italic">Procesando respuesta estratégica...</span>
                 </div>
@@ -154,7 +155,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Input Form */}
-          <form onSubmit={handleSubmit} className="p-4 border-t flex gap-md bg-opacity-50" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.3)' }}>
+          <form onSubmit={handleSubmit} className="p-4 border-t flex gap-md bg-opacity-50" style={{ borderColor: 'rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.3)' }}>
             <input 
               type="text" 
               value={input}
@@ -163,8 +164,8 @@ export default function ChatWidget() {
               disabled={isLoading}
               className="flex-1 px-4 py-3 rounded-lg border text-primary w-full"
               style={{ 
-                background: 'rgba(255,255,255,0.03)',
-                borderColor: 'rgba(255,255,255,0.1)', 
+                background: 'rgba(0,0,0,0.02)',
+                borderColor: 'rgba(0,0,0,0.1)', 
                 outline: 'none',
                 fontFamily: 'inherit'
               }}
@@ -175,7 +176,7 @@ export default function ChatWidget() {
               className="px-6 py-3 rounded-lg flex items-center justify-center border-none cursor-pointer transition-colors font-semibold gap-2"
               style={{ 
                 background: input.trim() ? 'var(--accent-teclab)' : 'var(--bg-tertiary)',
-                color: input.trim() ? '#000' : 'var(--text-secondary)'
+                color: input.trim() ? '#fff' : 'var(--text-secondary)'
               }}
             >
               <span>Enviar</span>

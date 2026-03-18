@@ -48,7 +48,7 @@ export default function StrategicInfographic() {
         <h2 className="text-3xl text-gradient mb-2" style={{ visibility: 'hidden'}}>Análisis de Fuerzas</h2>
         
         {/* Strengths */}
-        <div className="glass-panel panel-onmex" style={{ background: 'linear-gradient(135deg, rgba(0,210,135,0.05) 0%, rgba(19,20,31,0.6) 100%)' }}>
+        <div className="glass-panel panel-onmex" style={{ background: 'linear-gradient(135deg, rgba(0,210,135,0.05) 0%, rgba(248,250,252,0.6) 100%)' }}>
           <div className="flex items-center gap-sm mb-4">
             <Shield className="text-success" size={24} color="var(--accent-onmex)" />
             <h3 className="text-2xl font-bold text-success" style={{ color: 'var(--accent-onmex)'}}>Nuestros Puntos Fuertes</h3>
@@ -72,7 +72,7 @@ export default function StrategicInfographic() {
         </div>
 
         {/* Weaknesses */}
-        <div className="glass-panel panel-ipp" style={{ background: 'linear-gradient(135deg, rgba(255,42,95,0.05) 0%, rgba(19,20,31,0.6) 100%)' }}>
+        <div className="glass-panel panel-ipp" style={{ background: 'linear-gradient(135deg, rgba(255,42,95,0.05) 0%, rgba(248,250,252,0.6) 100%)' }}>
           <div className="flex items-center gap-sm mb-4">
             <HelpCircle className="text-danger" size={24} color="var(--accent-ipp)" />
             <h3 className="text-2xl font-bold text-danger" style={{ color: 'var(--accent-ipp)'}}>Nuestros Puntos Débiles</h3>

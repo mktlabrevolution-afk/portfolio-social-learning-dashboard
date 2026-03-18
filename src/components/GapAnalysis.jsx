@@ -40,7 +40,7 @@ export default function GapAnalysis() {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="glass-panel" style={{ padding: '12px', minWidth: '200px', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div className="glass-panel" style={{ padding: '12px', minWidth: '200px', border: '1px solid rgba(0,0,0,0.1)' }}>
           <p className="font-semibold mb-2">{label}</p>
           <div className="flex justify-between text-sm mb-1">
             <span style={{ color: 'var(--accent-teclab)' }}>Demanda Proyectada:</span>
@@ -60,7 +60,7 @@ export default function GapAnalysis() {
     <div className="glass-panel border-teclab">
       <div className="flex flex-col md:flex-row gap-lg">
           {/* Graphical Representation */}
-          <div className="w-full md:w-1/2 flex flex-col p-4 rounded-xl" style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="w-full md:w-1/2 flex flex-col p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.4)', border: '1px solid rgba(0,0,0,0.05)' }}>
              <h3 className="text-sm uppercase tracking-widest text-muted font-semibold mb-2">Matriz de Oportunidad (2026)</h3>
              <p className="text-xs text-secondary mb-6">Comparativa de demanda proyectada versus saturación actual de competidores en nuestros puntos ciegos.</p>
              
@@ -77,7 +77,7 @@ export default function GapAnalysis() {
                         <stop offset="95%" stopColor="var(--accent-ipp)" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={false} />
                     <XAxis dataKey="sector" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} tick={{fill: '#94a3b8'}} />
                     <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} />

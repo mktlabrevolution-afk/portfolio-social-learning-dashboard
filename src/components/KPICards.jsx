@@ -48,7 +48,7 @@ export default function KPICards() {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="glass-panel" style={{ padding: '8px 12px', minWidth: 'auto', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div className="glass-panel" style={{ padding: '8px 12px', minWidth: 'auto', border: '1px solid rgba(0,0,0,0.1)' }}>
           <p className="text-sm font-semibold">{payload[0].name}</p>
           <p className="text-sm text-secondary">{payload[0].value} programas</p>
         </div>
@@ -102,7 +102,7 @@ export default function KPICards() {
             <h3 className="text-sm text-muted uppercase font-semibold" style={{ marginBottom: 'var(--space-sm)' }}>Distribución del Portafolio</h3>
             <ul className="flex flex-col gap-sm">
               {inst.areas.map((area, aIdx) => (
-                <li key={aIdx} className="flex items-center justify-between text-sm p-2 rounded" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <li key={aIdx} className="flex items-center justify-between text-sm p-2 rounded" style={{ background: 'rgba(0,0,0,0.03)' }}>
                   <div className="flex items-center gap-sm">
                     <span className={inst.textClass} style={{ opacity: 1 - (aIdx * 0.2) }}>{area.icon}</span>
                     <span className="text-secondary md:truncate max-w-[150px]">{area.name}</span>
